@@ -165,6 +165,10 @@ input {
     border: 1px solid $grey-100;
 }
 
+form {
+    max-width: 100%;
+}
+
 .input-box {
     width: 287.98px;
     height: 65.98px;

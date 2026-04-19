@@ -4,33 +4,41 @@
         <div class="mb-2">
             <h1>Login</h1>
         </div>
-        <div class="d-flex flex-column mb-2 mw-100">
-            <vinput
-                #usernameInput
-                innerClass="auth-input"
-                placeholder="Username"
-                [(ngModel)]="authModel.username"
-                [validator]="usernameValidator"
-                [errorMessage]="usernameError"
-            />
-            <vinput
-                #passwordInput
-                innerClass="auth-input"
-                placeholder="Password"
-                [(ngModel)]="authModel.password"
-                [validator]="passwordValidator"
-                [errorMessage]="passwordError"
-            />
-        </div>
-        <vbutton
-            innerClass="auth-button primary"
-            (onClick)="login()"
-            [validationSources]="[usernameInput, passwordInput]"
-        >Login</vbutton>
-        <vbutton
-            innerClass="auth-button secondary"
-            (onClick)="login()"
-            [validationSources]="[usernameInput, passwordInput]"
-        >Register</vbutton>
+        <form>
+            <div class="d-flex flex-column mb-2 mw-100">
+                <vinput
+                    #usernameInput
+                    name="username"
+                    innerClass="auth-input"
+                    type="text"
+                    autocomplete="username"
+                    placeholder="Username"
+                    [(ngModel)]="authModel.username"
+                    [validator]="usernameValidator"
+                    [errorMessage]="usernameError"
+                />
+                <vinput
+                    #passwordInput
+                    name="password"
+                    innerClass="auth-input"
+                    type="password"
+                    autocomplete="current-password"
+                    placeholder="Password"
+                    [(ngModel)]="authModel.password"
+                    [validator]="passwordValidator"
+                    [errorMessage]="passwordError"
+                />
+            </div>
+            <vbutton
+                innerClass="auth-button primary"
+                (onClick)="login()"
+                [validationSources]="[usernameInput, passwordInput]"
+            >Login</vbutton>
+            <vbutton
+                innerClass="auth-button secondary"
+                (onClick)="login()"
+                [validationSources]="[usernameInput, passwordInput]"
+            >Register</vbutton>
+        </form>
     </div>
 </div>

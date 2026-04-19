@@ -29,9 +29,12 @@ export class ValidativeInput implements Validative, ControlValueAccessor {
         this.onChange(this.value);
     }
 
+    @Input() name = "";
     @Input() placeholder = "";
     @Input() innerClass = "";
     @Input() validator: (arg0: string) => boolean = () => true;
+    @Input() type = "";
+    @Input() autocomplete = "";
 
     public touched = false;
     get isValid(): boolean {
