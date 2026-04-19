@@ -1,4 +1,5 @@
 <button
     (click)="execute()"
     [class]="innerClass"
+    [disabled]="disableIfInvalid && !isValid"
 ><ng-content /></button>

@@ -145,8 +145,10 @@ a.disabled {
 }
 
 .button, button {
+    user-select: none;
     &:disabled {
         opacity: 0.5;
+        pointer-events: none;
     }
 }
 
