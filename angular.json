@@ -41,7 +41,10 @@
               "includePaths": [
                 "src/style/"
               ]
-            }
+            },
+            "polyfills": [
+              "@angular/localize/init"
+            ]
           },
           "configurations": {
             "production": {

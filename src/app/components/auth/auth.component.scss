@@ -1,0 +1,27 @@
+@use 'pallet' as *;
+@use 'mixins' as *;
+
+:host {
+    @include fill-screen;
+}
+
+.login-container {
+    border-radius: 32px;
+    padding: 32px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.bg {
+    background: url('../../../assets/images/auth-background.webp') no-repeat center;
+    background-blend-mode: darken;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}

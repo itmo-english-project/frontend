@@ -1,9 +1,19 @@
+@use 'bootstrap/scss/bootstrap';
 @use 'pallet' as *;
+@use 'mixins' as *;
 
 body {
     padding: 0;
     margin: 0;
     background-color: $white;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-width: 100%;
+}
+
+app-root {
+    @include fill-screen;
 }
 
 p {
@@ -12,7 +22,7 @@ p {
 }
 
 * {
-    font-family: 'Open Sans' sans-serif;
+    font-family: 'Open Sans', sans-serif;
     color: $black;
     font-size: 14px;
     line-height: 150%;
@@ -35,6 +45,7 @@ a {
     font-weight: $semi-bold;
     color: $primary-color;
     font-size: 16px;
+    text-decoration: none;
 }
 
 a.disabled {
@@ -79,8 +90,15 @@ a.disabled {
     border: 1px solid $primary-color;
 }
 
-.input {
+.input, input, .button, button {
     outline: none;
+    border: none;
+}
+
+.button, button {
+    &:disabled {
+        opacity: 0.5;
+    }
 }
 
 @mixin auth-element {
@@ -88,27 +106,43 @@ a.disabled {
     border-radius: 16px;
     width: 422px;
     height: 57px;
+    margin-bottom: 8px;
+    font-size: 16px;
+    transition: .2s ease-in-out;
 }
 
 .auth-input {
     @include auth-element;
     background-color: $grey-50;
+    border: 1px solid transparent;
     &::placeholder {
         color: $grey-200;
         font-weight: $semi-bold;
+    }
+    &:focus {
+        border: 1px solid $black;
     }
 }
 
 .auth-button {
     @include auth-element;
     font-weight: bold;
-    .primary {
+    &.primary {
         background-color: $black;
         color: $white;
+        &:hover {
+            opacity: 0.9;
+        }
     }
-    .secondary {
+    &.secondary {
         background-color: $white;
         border: 1px solid $grey-100;
+        &:hover {
+            background-color: $grey-50;
+        }
+        &:disabled {
+            background-color: $grey-100;
+        }
     }
 }
 
