@@ -1,6 +1,55 @@
+
+// Include theming for Angular Material with `mat.theme()`.
+// This Sass mixin will define CSS variables that are used for styling Angular Material
+// components according to the Material 3 design spec.
+// Learn more about theming and how to use it for your application's
+// custom components at https://material.angular.dev/guide/theming
 @use 'bootstrap/scss/bootstrap';
 @use 'pallet' as *;
 @use 'mixins' as *;
+@use '@angular/material' as mat;
+
+html {
+  height: 100%;
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+body {
+  // Default the application to a light color theme. This can be changed to
+  // `dark` to enable the dark color theme, or to `light dark` to defer to the
+  // user's system settings.
+  color-scheme: light;
+
+  // Set a default background, font and text colors for the application using
+  // Angular Material's system-level CSS variables. Learn more about these
+  // variables at https://material.angular.dev/guide/system-variables
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+
+  // Reset the user agent margin.
+  margin: 0;
+  height: 100%;
+}
+
+:root {
+    .mat-mdc-snack-bar-label {
+        color: $white;
+        font-family: $font-family;
+        font-size: 16px !important;
+        text-align: center;
+    }
+    mat-snack-bar-container {
+        margin-bottom: 16px;
+    }
+}
 
 body {
     padding: 0;
@@ -22,7 +71,7 @@ p {
 }
 
 * {
-    font-family: 'Open Sans', sans-serif;
+    font-family: $font-family;
     color: $black;
     font-size: 14px;
     line-height: 150%;
@@ -98,52 +147,6 @@ a.disabled {
 .button, button {
     &:disabled {
         opacity: 0.5;
-    }
-}
-
-@mixin auth-element {
-    padding: 18px;
-    border-radius: 16px;
-    width: 422px;
-    height: 57px;
-    margin-bottom: 8px;
-    font-size: 16px;
-    transition: .2s ease-in-out;
-    max-width: 100%;
-}
-
-.auth-input {
-    @include auth-element;
-    background-color: $grey-50;
-    border: 1px solid transparent;
-    &::placeholder {
-        color: $grey-200;
-        font-weight: $semi-bold;
-    }
-    &:focus {
-        border: 1px solid $black;
-    }
-}
-
-.auth-button {
-    @include auth-element;
-    font-weight: bold;
-    &.primary {
-        background-color: $black;
-        color: $white;
-        &:hover {
-            opacity: 0.9;
-        }
-    }
-    &.secondary {
-        background-color: $white;
-        border: 1px solid $grey-100;
-        &:hover {
-            background-color: $grey-50;
-        }
-        &:disabled {
-            background-color: $grey-100;
-        }
     }
 }
 

@@ -1,0 +1,8 @@
+<input
+    [class]="innerClass"
+    [(ngModel)]="value"
+    [placeholder]="placeholder"
+    (input)="touched = true"
+    (blur)="touched = true"
+    [class.bad]="touched && !isValid"
+/>
