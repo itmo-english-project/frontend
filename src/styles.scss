@@ -1,1 +1,131 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'pallet' as *;
+
+body {
+    padding: 0;
+    margin: 0;
+    background-color: $white;
+}
+
+p {
+    padding: 0;
+    margin: 0;
+}
+
+* {
+    font-family: 'Open Sans' sans-serif;
+    color: $black;
+    font-size: 14px;
+    line-height: 150%;
+    box-sizing: border-box;
+}
+
+h1, h2 {
+    font-weight: bold;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+a {
+    font-weight: $semi-bold;
+    color: $primary-color;
+    font-size: 16px;
+}
+
+a.disabled {
+    font-weight: normal;
+    color: $grey-300;
+    font-size: 16px;
+}
+
+.username {
+    font-weight: normal;
+    color: $grey-300;
+    font-size: 16px;
+}
+
+.bold, b {
+    font-weight: bold;
+}
+
+.muted {
+    color: $grey-300;
+}
+
+.light {
+    color: $grey-200;
+}
+
+.button, button {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: $semi-bold;
+    cursor: pointer;
+}
+
+.button-filled {
+    background-color: $primary-color;
+    color: $white;
+}
+
+.button-light {
+    background: $white;
+    color: $primary-color;
+    border: 1px solid $primary-color;
+}
+
+.input {
+    outline: none;
+}
+
+@mixin auth-element {
+    padding: 18px;
+    border-radius: 16px;
+    width: 422px;
+    height: 57px;
+}
+
+.auth-input {
+    @include auth-element;
+    background-color: $grey-50;
+    &::placeholder {
+        color: $grey-200;
+        font-weight: $semi-bold;
+    }
+}
+
+.auth-button {
+    @include auth-element;
+    font-weight: bold;
+    .primary {
+        background-color: $black;
+        color: $white;
+    }
+    .secondary {
+        background-color: $white;
+        border: 1px solid $grey-100;
+    }
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+    width: 100%;
+}
+
+input {
+    width: 287.98px;
+    height: 37.98px;
+    border-radius: 6px;
+    border: 1px solid $grey-100;
+}
+
+.input-box {
+    width: 287.98px;
+    height: 65.98px;
+}
