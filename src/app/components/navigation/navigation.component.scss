@@ -6,13 +6,58 @@
     flex-grow: 1;
 }
 
+.nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+.removal {
+    position: fixed;
+    background-color: #00000055;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 50;
+    visibility: hidden;
+    display: block;
+    opacity: 0;
+    transition: 0.2s ease-in-out;
+    &.showed {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    @media screen and (min-width: $md) {
+        display: none !important;
+    }
+}
+
 .left-menu {
     display: flex;
     flex-direction: column;
     height: 100%;
-    width: 256px;
+    min-width: 256px;
     border-right: 1px solid $grey-50;
     padding-inline: 8px;
+    background-color: $white;
+    z-index: 100;
+    @media screen and (max-width: calc($md - $eps)) {
+        transition: 0.2s ease-in-out;
+        transform: translateX(-100%);
+        position: fixed;
+        &.showed {
+            display: flex;
+            transform: none;
+        }
+    }
+    &.showed {
+        display: flex !important;
+    }
 }
 
 .logo {
@@ -48,10 +93,10 @@
     padding: 8px 8px;
     margin-bottom: 4px;
     border-radius: 8px;
+    transition: 0.2s ease-in-out;
 
     &:hover {
         background-color: $grey-50;
-        transition: 0.2s ease-in-out;
     }
 
     &.active {
@@ -65,21 +110,55 @@
     }
 }
 
-.right-menu {
-    padding-inline: 33px 64px;
+.right-menu.pc {
     display: flex;
+    padding-inline: 33px 64px;
     flex-direction: column;
     flex-grow: 1;
-    width: 100%;
+    @media screen and (max-width: calc($md - $eps)) {
+        display: none;
+    }
+    &.showed {
+        display: flex !important;
+    }
 }
 
-header {
+.pc-header {
+    z-index: 50;
     display: flex;
     justify-content: space-between;
     height: 84px;
     align-items: center;
     margin-bottom: 12px;
+    @media screen and (max-width: calc($md - $eps)) {
+        display: none;
+    }
+}
+
+.mobile-header {
+    @media screen and (min-width: $md) {
+        display: none !important;
+    }
     width: 100%;
+    height: 53px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 16px;
+    border-bottom: 1px solid $grey-100;
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    i {
+        height: 24px;
+        width: 24px;
+        background: $black;
+    }
+    .title {
+        font-weight: bold;
+    }
 }
 
 .user-dropdown {
@@ -94,7 +173,7 @@ header {
         .i {
             rotate: 180deg;
         }
-    }
+    } 
 }
 
 .user-info {
@@ -112,19 +191,80 @@ header {
 .user-avatar {
     width: 36px;
     height: 36px;
-    margin-right: 16px;
+    &.pc {
+        margin-right: 16px;
+    }
 }
 
 .popup-menu {
-    position: absolute;
     background-color: $white;
     border: 1px solid $grey-100;
     border-radius: 8px;
     user-select: none;
     width: 100%;
     top: calc(100% + 16px);
+    position: absolute;
+    z-index: 100;
+    display: none;
     &-element {
         width: 100%;
         padding: 8px;
+    }
+    &.showed {
+        display: block;
+    }
+}
+
+.right-menu.mobile {
+    @media screen and (min-width: $md) {
+        display: none !important;
+    }
+    position: fixed;
+    min-width: 256px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    visibility: hidden;
+    right: 0;
+    transform: translateX(100%);
+    background-color: $white;
+    transition: 0.2s ease-in-out;
+    height: 100%;
+    &.showed {
+        visibility: visible;
+        transform: none;
+    }
+}
+
+.user-mobile {
+    display: flex;
+    padding: 16px;
+    border-bottom: 1px solid $grey-100;
+}
+
+.user-links-mobile {
+    padding: 8px;
+    .element {
+        padding: 8px;
+        margin-bottom: 4px;
+        border-radius: 8px;
+        transition: 0.2s ease-in-out;
+        &:hover {
+            background: $grey-50;
+        }
+        img {
+            margin-right: 8px;
+        }
+    }
+}
+
+.content {
+    margin-left: 256px;
+    margin-top: 64px;
+    padding-block: 16px;
+    padding-inline: 33px 64px;
+    @media screen and (max-width: calc($md - $eps)) {
+        margin-top: 53px;
+        padding: 16px;
     }
 }

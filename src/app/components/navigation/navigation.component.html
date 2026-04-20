@@ -1,36 +1,42 @@
 @if (!onLoad) {
-    <div class="left-menu">
-        <div class="logo">
-            <a routerLink="/">
-                <img src="/assets/images/logo-light.svg" class="logo-image" />
-            </a>
-        </div>
-        <div class="menu-links">
-            @for (link of menuLinks; track link.text) {
-                <a [routerLink]="link.url">
-                    <div class="menu-link" [class.active]="'/' + localUrl == link.url">
-                        <i [class]="link.icon"></i>
-                        <span class="menu-link-text">{{ link.text }}</span>
-                    </div>
+    <div class="nav">
+        <a (click)="closeWindows()"><div class="removal" [class.showed]="anyMenuShown"></div></a>
+        <div class="left-menu" [class.showed]="doShowLeftMenu">
+            <div class="logo">
+                <a routerLink="/">
+                    <img src="/assets/images/logo-light.svg" class="logo-image" />
                 </a>
-            }
-        </div>
-    </div>
-    <div class="right-menu">
-        <header>
-            <h1>{{ title }}</h1>
-            <a (click)="toggleMenu()">
-                <div class="position-relative">
-                    <div class="user-dropdown">
-                        <img class="user-avatar" src="/assets/images/avatar.svg" />
-                        <div class="user-info">
-                            <span class="name">{{ user?.fullName }}</span>
-                            <span class="isu">{{ user?.isu }}</span>
+            </div>
+            <div class="menu-links">
+                @for (link of menuLinks; track link.text) {
+                    <a [routerLink]="link.url">
+                        <div class="menu-link" [class.active]="'/' + localUrl == link.url">
+                            <i [class]="link.icon"></i>
+                            <span class="menu-link-text">{{ link.text }}</span>
                         </div>
-                        <i class="i-dropdown"></i>
-                    </div>
-                    @if (doShowMenu) {
-                        <div class="popup-menu">
+                    </a>
+                }
+            </div>
+        </div>
+        <header class="mobile-header">
+            <a (click)="toggleLeftMenu()"><i class="i-tray"></i></a>
+            <span class="title">{{ title }}</span>
+            <a (click)="toggleRightMenu()"><img class="user-avatar" src="/assets/images/avatar.svg" /></a>
+        </header>
+        <div class="right-menu pc">
+            <header class="pc-header">
+                <h1>{{ title }}</h1>
+                <a (click)="toggleRightMenu()">
+                    <div class="position-relative">
+                        <div class="user-dropdown">
+                            <img class="user-avatar pc" src="/assets/images/avatar.svg" />
+                            <div class="user-info">
+                                <span class="name">{{ user?.fullName }}</span>
+                                <span class="isu">{{ user?.isu }}</span>
+                            </div>
+                            <i class="i-dropdown"></i>
+                        </div>
+                        <div class="popup-menu" [class.showed]="doShowRightMenu">
                             <a routerLink="/settings">
                                 <div class="popup-menu-element">
                                     <img src="/assets/images/profile-settings.svg" />
@@ -44,12 +50,38 @@
                                 </div>
                             </a>
                         </div>
-                    }
-                </div>
-            </a>
-        </header>
-        <div>
-            <ng-content />
+                    </div>
+                </a>
+            </header>
+            <div>
+                
+            </div>
         </div>
+        <div class="right-menu mobile" [class.showed]="doShowRightMenu">
+            <div class="user-mobile">
+                <img class="user-avatar pc" src="/assets/images/avatar.svg" />    
+                <div class="d-flex flex-column">   
+                    <span class="name">{{ user?.fullName }}</span>
+                    <span class="isu">{{ user?.isu }}</span>
+                </div>
+            </div>
+            <div class="user-links-mobile">
+                <a routerLink="/settings">
+                    <div class="element">
+                        <img src="/assets/images/profile-settings.svg" />
+                        <span class="text">User settings</span>
+                    </div>
+                </a>
+                <a (click)="logout()">
+                    <div class="element">
+                        <img src="/assets/images/exit.svg" />
+                        <span class="text">Exit</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <ng-content />
     </div>
 }

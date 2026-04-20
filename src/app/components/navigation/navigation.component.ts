@@ -47,7 +47,8 @@ export class NavigationComponent {
     title = "";
     user: UserModel | null = null;
     onLoad = true;
-    doShowMenu = false;
+    doShowLeftMenu = false;
+    doShowRightMenu = false;
 
     constructor(
         private routerService: RouterService,
@@ -67,8 +68,18 @@ export class NavigationComponent {
         }
     }
 
-    toggleMenu() {
-        this.doShowMenu = !this.doShowMenu;
+    toggleLeftMenu() {
+        this.doShowLeftMenu = !this.doShowLeftMenu;
+        if (this.doShowRightMenu && this.doShowLeftMenu) {
+            this.doShowRightMenu = false;
+        }
+    }
+
+    toggleRightMenu() {
+        this.doShowRightMenu = !this.doShowRightMenu;
+        if (this.doShowRightMenu && this.doShowLeftMenu) {
+            this.doShowLeftMenu = false;
+        }
     }
 
     logout() {
@@ -76,5 +87,14 @@ export class NavigationComponent {
             this.user = null;
             this.routerService.navigateSimple("/login");
         })).subscribe();
+    }
+
+    get anyMenuShown() {
+        return this.doShowLeftMenu || this.doShowRightMenu;
+    }
+
+    closeWindows() {
+        this.doShowLeftMenu = false;
+        this.doShowRightMenu = false;
     }
 }
