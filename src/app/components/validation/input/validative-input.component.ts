@@ -1,11 +1,12 @@
 import { Component, Input, forwardRef } from "@angular/core";
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Validative } from "../validative";
+import { CommonModule } from "@angular/common";
 
 @Component({
     selector: 'vinput',
     standalone: true,
-    imports: [FormsModule],
+    imports: [FormsModule, CommonModule],
     templateUrl: './validative-input.component.html',
     styleUrl: './validative-input.component.scss',
     providers: [
@@ -35,6 +36,7 @@ export class ValidativeInput implements Validative, ControlValueAccessor {
     @Input() validator: (arg0: string) => boolean = () => true;
     @Input() type = "";
     @Input() autocomplete = "";
+    @Input() invalidClass = "bad";
 
     public touched = false;
     get isValid(): boolean {

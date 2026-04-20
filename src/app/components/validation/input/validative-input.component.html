@@ -1,5 +1,5 @@
 <input
-    [name]="name"
+    [attr.name]="name"
     [class]="innerClass"
     [type]="type"
     [autocomplete]="autocomplete"
@@ -7,5 +7,5 @@
     [placeholder]="placeholder"
     (input)="touched = true"
     (blur)="touched = true"
-    [class.bad]="touched && !isValid"
+    [ngClass]="!isValid ? invalidClass : ''"
 />

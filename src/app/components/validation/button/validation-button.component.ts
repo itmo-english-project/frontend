@@ -30,14 +30,19 @@ export class ValidationButton {
 
     execute() {
         var str = null;
+        var anyInvalid = false;
         for (let source of this.validationSources) {
             source.touch();
+            if (source.isValid) {
+                continue;
+            }
+            anyInvalid = true;
             if (str == null) {
                 str = source.getErrorMessage();
             }
         }
-        if (str != null) {
-            this.snackbarService.show(str);
+        if (anyInvalid) {
+            this.snackbarService.show(str ? str : "Error");
             return;
         }
         this.onClick.emit();
