@@ -91,10 +91,11 @@ h2 {
 }
 
 a {
-    font-weight: $semi-bold;
     color: $primary-color;
     font-size: 16px;
     text-decoration: none;
+    outline: none;
+    cursor: pointer;
 }
 
 a.disabled {
@@ -172,4 +173,37 @@ form {
 .input-box {
     width: 287.98px;
     height: 65.98px;
+}
+
+i {
+    &[class^="i-"] {
+        background-color: $black;
+        width: 14px;
+        height: 14px;
+        display: inline-block;
+        mask-size: contain !important;
+        mask-repeat: no-repeat !important;
+        mask-position: center !important;
+    }
+    &.i {
+        &-search {
+            mask: url('./assets/icons/search.svg');
+        }
+        &-list {
+            mask: url('./assets/icons/list.svg');
+        }
+        &-social {
+            mask: url('./assets/icons/social.svg');
+        }
+        &-plus {
+            mask: url('./assets/icons/plus.svg');
+        }
+        &-dropdown {
+            mask: url('./assets/icons/dropdown.svg');
+        }
+    }
+}
+
+img {
+    user-select: none;
 }

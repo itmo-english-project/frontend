@@ -80,9 +80,13 @@ export class AuthService {
     }
 
     private mock(): Observable<void> {
-        this.currentTokenSubject.next("cool-token-228");
-        this.currentUserSubject.next({
-            username: 'volodyapokalipsis'
+        this.setSession({
+            token: "cool-token-228",
+            user: {
+                username: 'volodyapokalipsis',
+                fullName: 'Vladimir Pokalipsis',
+                isu: "676767"
+            }
         });
         return of(undefined);
     }

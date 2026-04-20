@@ -1,0 +1,130 @@
+@use 'pallet' as *;
+@use 'mixins' as *;
+
+:host {
+    @include fill-screen;
+    flex-grow: 1;
+}
+
+.left-menu {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 256px;
+    border-right: 1px solid $grey-50;
+    padding-inline: 8px;
+}
+
+.logo {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    height: 74px;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.logo-image {
+    width: 157px;
+    height: 45px;
+}
+
+.menu-link {
+    * {
+        color: $grey-300;
+        font-size: 16px;
+        transition: 0.2s ease-in-out;
+    }
+    i {
+        margin-right: 8px;
+        background-color: $grey-300;
+        height: 24px;
+        width: 24px;
+    }
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    padding: 8px 8px;
+    margin-bottom: 4px;
+    border-radius: 8px;
+
+    &:hover {
+        background-color: $grey-50;
+        transition: 0.2s ease-in-out;
+    }
+
+    &.active {
+        * {
+            color: $primary-color;
+            font-weight: bold;
+        }
+        i {
+            background-color: $primary-color;
+        }
+    }
+}
+
+.right-menu {
+    padding-inline: 33px 64px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 100%;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    height: 84px;
+    align-items: center;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+.user-dropdown {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    .i {
+        transition: 0.2s ease-in-out;
+    }
+    &.open {
+        .i {
+            rotate: 180deg;
+        }
+    }
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    margin-right: 16px;
+    .name {
+        font-size: 16px;
+    }
+    .isu {
+        font-size: 14px;
+    }
+}
+
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    margin-right: 16px;
+}
+
+.popup-menu {
+    position: absolute;
+    background-color: $white;
+    border: 1px solid $grey-100;
+    border-radius: 8px;
+    user-select: none;
+    width: 100%;
+    top: calc(100% + 16px);
+    &-element {
+        width: 100%;
+        padding: 8px;
+    }
+}

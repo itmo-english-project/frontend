@@ -1,0 +1,55 @@
+@if (!onLoad) {
+    <div class="left-menu">
+        <div class="logo">
+            <a routerLink="/">
+                <img src="/assets/images/logo-light.svg" class="logo-image" />
+            </a>
+        </div>
+        <div class="menu-links">
+            @for (link of menuLinks; track link.text) {
+                <a [routerLink]="link.url">
+                    <div class="menu-link" [class.active]="'/' + localUrl == link.url">
+                        <i [class]="link.icon"></i>
+                        <span class="menu-link-text">{{ link.text }}</span>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+    <div class="right-menu">
+        <header>
+            <h1>{{ title }}</h1>
+            <a (click)="toggleMenu()">
+                <div class="position-relative">
+                    <div class="user-dropdown">
+                        <img class="user-avatar" src="/assets/images/avatar.svg" />
+                        <div class="user-info">
+                            <span class="name">{{ user?.fullName }}</span>
+                            <span class="isu">{{ user?.isu }}</span>
+                        </div>
+                        <i class="i-dropdown"></i>
+                    </div>
+                    @if (doShowMenu) {
+                        <div class="popup-menu">
+                            <a routerLink="/settings">
+                                <div class="popup-menu-element">
+                                    <img src="/assets/images/profile-settings.svg" />
+                                    <span class="text">User settings</span>
+                                </div>
+                            </a>
+                            <a (click)="logout()">
+                                <div class="popup-menu-element">
+                                    <img src="/assets/images/exit.svg" />
+                                    <span class="text">Exit</span>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                </div>
+            </a>
+        </header>
+        <div>
+            <ng-content />
+        </div>
+    </div>
+}
