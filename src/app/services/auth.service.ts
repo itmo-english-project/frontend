@@ -2,17 +2,20 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@env";
 import { BehaviorSubject, map, Observable, of, tap } from "rxjs";
-import { AuthModel } from "@models/auth.model";
 import { AuthResponseModel } from "@models/auth-response.model";
 import { UserModel } from "@models/user.model";
 import { PlatformService } from "./platform.service";
+import { LoginModel } from "@models/login.model";
+import { RegisterModel } from "@models/register.model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
     public static readonly MIN_USERNAME_LENGTH = 1;
+    public static readonly MIN_NAME_LENGTH = 1;
     public static readonly MIN_PASSWORD_LENGTH = 8;
+    public static readonly ISU_LENGTH = 6;
 
     private readonly TOKEN_KEY = 'access_token';
     private readonly USER_KEY = 'user';
@@ -30,14 +33,14 @@ export class AuthService {
         this.initializeSession();
     }
 
-    register(model: AuthModel): Observable<void> {
+    register(model: RegisterModel): Observable<void> {
         this.extractData(
             this.httpClient.post<AuthResponseModel>(this.baseUrl + "/register", model)
         )
         return this.mock();
     }
 
-    login(model: AuthModel): Observable<void> {
+    login(model: LoginModel): Observable<void> {
         this.extractData(
             this.httpClient.post<AuthResponseModel>(this.baseUrl + "/register", model)
         )

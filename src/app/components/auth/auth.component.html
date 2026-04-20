@@ -2,43 +2,112 @@
 <div class="bg">
     <div class="login-container">
         <div class="mb-2">
-            <h1>Login</h1>
+            <h1>{{ humanReadable(type) }}</h1>
         </div>
         <form>
-            <div class="d-flex flex-column mb-2 mw-100">
-                <vinput
-                    #usernameInput
-                    name="username"
-                    innerClass="auth-input"
-                    type="text"
-                    autocomplete="username"
-                    placeholder="Username"
-                    [(ngModel)]="authModel.username"
-                    [validator]="usernameValidator"
-                    [errorMessage]="usernameError"
-                />
-                <vinput
-                    #passwordInput
-                    name="password"
-                    innerClass="auth-input"
-                    type="password"
-                    autocomplete="current-password"
-                    placeholder="Password"
-                    [(ngModel)]="authModel.password"
-                    [validator]="passwordValidator"
-                    [errorMessage]="passwordError"
-                />
-            </div>
-            <vbutton
-                innerClass="auth-button primary"
-                (onClick)="login()"
-                [validationSources]="[usernameInput, passwordInput]"
-            >Login</vbutton>
-            <vbutton
-                innerClass="auth-button secondary"
-                (onClick)="login()"
-                [validationSources]="[usernameInput, passwordInput]"
-            >Register</vbutton>
+            @if (type === 'login') {
+                <div class="d-flex flex-column mb-2 mw-100">
+                    <vinput
+                        #usernameInput
+                        name="username"
+                        [humanReadableName]="humanReadable('username')"
+                        innerClass="auth-input"
+                        type="text"
+                        autocomplete="username"
+                        [placeholder]="humanReadable('username')"
+                        [minLength]="MIN_USERNAME"
+                        [(ngModel)]="loginModel.username"
+                    />
+                    <vinput
+                        #passwordInput
+                        name="password"
+                        [humanReadableName]="humanReadable('password')"
+                        innerClass="auth-input"
+                        type="password"
+                        autocomplete="current-password"
+                        [placeholder]="humanReadable('password')"
+                        [minLength]="MIN_PASSWORD"
+                        [(ngModel)]="loginModel.password"
+                    />
+                </div>
+                <vbutton
+                    innerClass="auth-button primary"
+                    (onClick)="login()"
+                    (onError)="snackbarService.showOrFatal($event)"
+                    [validationSources]="[usernameInput, passwordInput]"
+                >Login</vbutton>
+                <button
+                    class="auth-button secondary"
+                    routerLink="/register"
+                >Register</button>
+            } @else {
+                <div class="d-flex flex-column mb-2 mw-100">
+                    <vinput
+                        #usernameInput
+                        name="username"
+                        [humanReadableName]="humanReadable('username')"
+                        innerClass="auth-input"
+                        type="text"
+                        [placeholder]="humanReadable('username')"
+                        [minLength]="MIN_USERNAME"
+                        [(ngModel)]="registerModel.username"
+                    />
+                    <vinput
+                        #isuInput
+                        name="isu"
+                        [humanReadableName]="humanReadable('isu')"
+                        innerClass="auth-input"
+                        type="text"
+                        [placeholder]="humanReadable('isu')"
+                        [exactLength]="ISU_LENGTH"
+                        [(ngModel)]="registerModel.isu"
+                        digitsOnly
+                    />
+                    <vinput
+                        #firstNameInput
+                        name="firstName"
+                        [humanReadableName]="humanReadable('firstName')"
+                        innerClass="auth-input"
+                        type="text"
+                        [placeholder]="humanReadable('firstName')"
+                        [minLength]="MIN_NAME"
+                        [(ngModel)]="registerModel.firstName"
+                        capital
+                    />
+                    <vinput
+                        #lastNameInput
+                        name="lastName"
+                        [humanReadableName]="humanReadable('lastName')"
+                        innerClass="auth-input"
+                        type="text"
+                        [placeholder]="humanReadable('lastName')"
+                        [minLength]="MIN_NAME"
+                        [(ngModel)]="registerModel.lastName"
+                        capital
+                    />
+                    <vinput
+                        #passwordInput
+                        name="password"
+                        [humanReadableName]="humanReadable('password')"
+                        innerClass="auth-input"
+                        type="password"
+                        autocomplete="new-password"
+                        [placeholder]="humanReadable('password')"
+                        [minLength]="MIN_PASSWORD"
+                        [(ngModel)]="registerModel.password"
+                    />
+                </div>
+                <vbutton
+                    innerClass="auth-button primary"
+                    (onClick)="register()"
+                    (onError)="snackbarService.showOrFatal($event)"
+                    [validationSources]="[usernameInput, isuInput, firstNameInput, lastNameInput, passwordInput]"
+                >Register</vbutton>
+                <button
+                    class="auth-button secondary"
+                    routerLink="/login"
+                >Login</button>
+            }
         </form>
     </div>
 </div>

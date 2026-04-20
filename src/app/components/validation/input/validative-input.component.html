@@ -7,5 +7,5 @@
     [placeholder]="placeholder"
     (input)="touched = true"
     (blur)="touched = true"
-    [ngClass]="!isValid ? invalidClass : ''"
+    [ngClass]="touched && !isValid ? invalidClass : ''"
 />

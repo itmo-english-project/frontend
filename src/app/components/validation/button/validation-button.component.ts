@@ -12,11 +12,8 @@ export class ValidationButton {
     @Input() innerClass = "";
     @Input() validationSources: Validative[] = [];
     @Output() onClick = new EventEmitter<void>();
+    @Output() onError = new EventEmitter<string | null>();
     @Input({ transform: booleanAttribute }) disableIfInvalid: boolean = false; 
-
-    constructor(
-        private snackbarService: SnackbarService
-    ) {}
 
     get isValid(): boolean {
         return this.validationSources.every(it => {
@@ -42,7 +39,7 @@ export class ValidationButton {
             }
         }
         if (anyInvalid) {
-            this.snackbarService.show(str ? str : "Error");
+            this.onError.emit(str);
             return;
         }
         this.onClick.emit();

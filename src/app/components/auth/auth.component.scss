@@ -29,6 +29,13 @@
     height: 100%;
 }
 
+.inputs-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+    max-width: 100%;
+}
+
 ::ng-deep {
     @mixin auth-element {
         padding: 18px;
