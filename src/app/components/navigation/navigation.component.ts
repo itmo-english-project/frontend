@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ElementRef, HostListener, ViewChild } from "@angular/core";
 import { RouterLink } from "@angular/router";
 import { UserModel } from "@models/user.model";
 import { AuthService } from "@services/auth.service";
@@ -43,12 +43,28 @@ export class NavigationComponent {
         }
     ];
 
+    @ViewChild('userDropdown') userDropdown!: ElementRef;
+    @ViewChild('popupMenu') popupMenu!: ElementRef;
+
+    @HostListener('document:click', ['$event'])
+    onDocumentClick(event: MouseEvent) {
+        if (
+            this.popupMenu
+            && this.userDropdown
+            && !this.popupMenu.nativeElement.contains(event.target)
+            && !this.userDropdown.nativeElement.contains(event.target)
+        ) {
+            this.doShowRightMenuPc = false;
+        }
+    }
+
     localUrl = "";
     title = "";
     user: UserModel | null = null;
     onLoad = true;
     doShowLeftMenu = false;
     doShowRightMenu = false;
+    doShowRightMenuPc = false;
 
     constructor(
         private routerService: RouterService,
@@ -75,8 +91,17 @@ export class NavigationComponent {
         }
     }
 
+    toggleRightMenuPc() {
+        this.doShowRightMenuPc = !this.doShowRightMenuPc;
+        this.doShowRightMenu = this.doShowRightMenuPc;
+        if (this.doShowRightMenu && this.doShowLeftMenu) {
+            this.doShowLeftMenu = false;
+        }
+    }
+
     toggleRightMenu() {
         this.doShowRightMenu = !this.doShowRightMenu;
+        this.doShowRightMenuPc = this.doShowRightMenu;
         if (this.doShowRightMenu && this.doShowLeftMenu) {
             this.doShowLeftMenu = false;
         }

@@ -26,9 +26,9 @@
         <div class="right-menu pc">
             <header class="pc-header">
                 <h1>{{ title }}</h1>
-                <a (click)="toggleRightMenu()">
+                <a (click)="toggleRightMenuPc()">
                     <div class="position-relative">
-                        <div class="user-dropdown">
+                        <div #userDropdown class="user-dropdown">
                             <img class="user-avatar pc" src="/assets/images/avatar.svg" />
                             <div class="user-info">
                                 <span class="name">{{ user?.fullName }}</span>
@@ -36,7 +36,7 @@
                             </div>
                             <i class="i-dropdown"></i>
                         </div>
-                        <div class="popup-menu" [class.showed]="doShowRightMenu">
+                        <div #popupMenu class="popup-menu" [class.showed]="doShowRightMenuPc">
                             <a routerLink="/settings">
                                 <div class="popup-menu-element">
                                     <img src="/assets/images/profile-settings.svg" />
@@ -53,9 +53,6 @@
                     </div>
                 </a>
             </header>
-            <div>
-                
-            </div>
         </div>
         <div class="right-menu mobile" [class.showed]="doShowRightMenu">
             <div class="user-mobile">

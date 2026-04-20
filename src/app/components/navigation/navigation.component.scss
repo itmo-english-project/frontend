@@ -259,12 +259,13 @@
 }
 
 .content {
-    margin-left: 256px;
-    margin-top: 64px;
-    padding-block: 16px;
-    padding-inline: 33px 64px;
+    @media screen and (min-width: $md) {
+        margin-left: calc(256px + 16px);
+        margin-top: calc(64px + 18px);
+    }
+    z-index: 101;
+    padding: 16px;
     @media screen and (max-width: calc($md - $eps)) {
         margin-top: 53px;
-        padding: 16px;
     }
 }
