@@ -12,7 +12,7 @@ export class ValidationButton {
     @Input() innerClass = "";
     @Input() validationSources: Validative[] = [];
     @Output() onClick = new EventEmitter<void>();
-    @Input({ transform: booleanAttribute }) disableIfInvalid: boolean | string = false; 
+    @Input({ transform: booleanAttribute }) disableIfInvalid: boolean = false; 
 
     constructor(
         private snackbarService: SnackbarService
