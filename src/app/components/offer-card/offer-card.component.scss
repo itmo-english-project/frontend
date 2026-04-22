@@ -15,8 +15,14 @@
 }
 
 .offer-picture {
+    max-height: 100%;
+}
+
+.offer-pic-container {
     width: 224px;
     height: 224px;
     margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
 }
-

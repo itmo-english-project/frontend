@@ -15,7 +15,7 @@ const defaultData: OfferModel[] = [
         },
         title: "Will swap the awl for the soap",
         description: fish,
-        pictures: ["/assets/mock/1.png", "/assets/mock/2.png"],
+        pictures: ["/assets/images/mock/1.png", "/assets/images/mock/2.png"],
         dueTime: null,
         creationDate: new Date(),
         swapRequest: null,
@@ -31,7 +31,7 @@ const defaultData: OfferModel[] = [
         },
         title: "Lorem ipsum dolor sit amet",
         description: fish,
-        pictures: ["/assets/mock/3.png"],
+        pictures: ["/assets/images/mock/3.png"],
         dueTime: null,
         creationDate: new Date(),
         swapRequest: null,
@@ -41,13 +41,13 @@ const defaultData: OfferModel[] = [
     {
         id: 2,
         author: {
-            username: 'hhhannahmmmontana',
-            isu: '239239',
-            fullName: 'Miley Cyrus'
+            username: 'v',
+            isu: '123123',
+            fullName: 'A B'
         },
         title: "Lorem ipsum dolor sit amet",
         description: fish,
-        pictures: ["/assets/mock/1.png"],
+        pictures: ["/assets/images/mock/1.png"],
         dueTime: null,
         creationDate: new Date(),
         swapRequest: null,
@@ -63,7 +63,7 @@ const defaultData: OfferModel[] = [
         },
         title: "Lorem ipsum dolor sit amet",
         description: fish,
-        pictures: ["/assets/mock/2.png"],
+        pictures: ["/assets/images/mock/2.png"],
         dueTime: null,
         creationDate: new Date(),
         swapRequest: null,
@@ -79,7 +79,7 @@ const defaultData: OfferModel[] = [
         },
         title: "Lorem ipsum dolor sit amet",
         description: fish,
-        pictures: ["/assets/mock/3.png"],
+        pictures: ["/assets/images/mock/3.png"],
         dueTime: null,
         creationDate: new Date(),
         swapRequest: null,
@@ -123,5 +123,9 @@ export class OfferRepository {
 
     public get() {
         return this.data;
+    }
+
+    public getMy(username: string) {
+        return this.get().filter(d => d.author.username == username);
     }
 }

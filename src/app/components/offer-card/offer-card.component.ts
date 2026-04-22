@@ -1,10 +1,11 @@
 import { Component, Input } from "@angular/core";
 import { OfferModel } from "@models/offer.model";
+import { RouterLink } from "@angular/router";
 
 @Component({
     selector: 'offer-card',
     standalone: true,
-    imports: [],
+    imports: [RouterLink],
     templateUrl: './offer-card.component.html',
     styleUrl: './offer-card.component.scss'
 })

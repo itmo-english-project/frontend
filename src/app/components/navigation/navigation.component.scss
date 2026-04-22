@@ -51,13 +51,15 @@
     padding-inline: 8px;
     background-color: $white;
     z-index: 100;
+    transition: 0.2s ease-in-out;
     @media screen and (max-width: calc($md - $eps)) {
-        transition: 0.2s ease-in-out;
         transform: translateX(-100%);
         position: fixed;
+        visibility: hidden;
         &.showed {
             display: flex;
             transform: none;
+            visibility: visible;
         }
     }
     &.showed {
@@ -270,10 +272,10 @@
 }
 
 .content {
+    width: 100%;
     @media screen and (min-width: $md) {
         margin-left: calc(256px + 16px);
         margin-top: calc(64px + 18px);
-        width: 100%;
     }
     z-index: 1;
     padding: 16px;

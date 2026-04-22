@@ -7,6 +7,11 @@ export const routes: Routes = [
             import("@components/home/home.component").then(m => m.HomeComponent)
     },
     {
+        path: 'ads',
+        loadComponent: () =>
+            import("@components/home/home.component").then(m => m.HomeComponent)
+    },
+    {
         path: 'login',
         loadComponent: () =>
             import("@components/auth/auth.component").then(m => m.AuthComponent)
