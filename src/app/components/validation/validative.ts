@@ -10,6 +10,5 @@ export function isDigitsOnly(str: string): boolean {
 }
 
 export function isCapital(str: string): boolean {
-    debugger
     return str[0] == str[0].toUpperCase();
 }

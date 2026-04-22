@@ -29,10 +29,12 @@
                 <a (click)="toggleRightMenuPc()">
                     <div class="position-relative">
                         <div #userDropdown class="user-dropdown">
-                            <img class="user-avatar pc" src="/assets/images/avatar.svg" />
-                            <div class="user-info">
-                                <span class="name">{{ user?.fullName }}</span>
-                                <span class="isu">{{ user?.isu }}</span>
+                            <div class="d-flex">
+                                <img class="user-avatar pc" src="/assets/images/avatar.svg" />
+                                <div class="user-info">
+                                    <span class="name">{{ user?.fullName }}</span>
+                                    <span class="isu">{{ user?.isu }}</span>
+                                </div>
                             </div>
                             <i class="i-dropdown"></i>
                         </div>

@@ -1,5 +1,19 @@
+@use 'pallet' as *;
 @use 'mixins' as *;
 
 :host {
-    @include fill-screen;
+    display: flex;
+    width: 100%;
+}
+
+offer-card {
+    margin-bottom: 16px;
+    @media screen and (min-width: $md) {
+        margin-right: 16px;
+    }
+}
+
+.els-container {
+    display: flex;
+    justify-content: center;
 }

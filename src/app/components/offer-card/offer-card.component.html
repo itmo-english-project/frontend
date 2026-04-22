@@ -1,0 +1,11 @@
+
+<div class="offer-card" [attr.name]="value.id">
+    <img class="offer-picture" [src]="value.pictures[0]" />
+    <div class="offer-text">
+        <b class="offer-title">{{value.title}}</b>
+        <p class="offer-desc">{{shortDesc}}</p>
+    </div>
+    <div class="mt-auto w-100">
+        <button class="button-filled">More</button>
+    </div>
+</div>

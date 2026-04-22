@@ -1,5 +1,6 @@
 export const environment = {
     production: false,
     domain: 'http://localhost',
-    apiDomain: 'http://localhost:6767'
+    apiDomain: 'http://localhost:6767',
+    mock: true
 };

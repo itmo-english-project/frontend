@@ -56,6 +56,8 @@ export class AuthComponent {
                 error: err => {
                     if (err.status === 401) {
                         this.snackbarService.show("Invalid login or password");
+                    } else if (err.status === 404) {
+                        this.snackbarService.show("User not found");
                     } else {
                         this.snackbarService.err(err);
                     }
@@ -65,6 +67,7 @@ export class AuthComponent {
     }
 
     register() {
+        debugger
         this.sub.add(
             this.authService.register(this.registerModel).subscribe({
                 next: () => {

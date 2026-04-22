@@ -1,12 +1,17 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "@env";
-import { BehaviorSubject, map, Observable, of, tap } from "rxjs";
+import { BehaviorSubject, map, Observable, of, tap, throwError } from "rxjs";
 import { AuthResponseModel } from "@models/auth-response.model";
 import { UserModel } from "@models/user.model";
 import { PlatformService } from "./platform.service";
 import { LoginModel } from "@models/login.model";
 import { RegisterModel } from "@models/register.model";
+
+interface MockUser {
+    user: UserModel,
+    password: string
+}
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +22,9 @@ export class AuthService {
     public static readonly MIN_PASSWORD_LENGTH = 8;
     public static readonly ISU_LENGTH = 6;
 
+    private readonly mockUsers: MockUser[] = [];
+
+    private readonly MOCK_KEY = "MOCK_USERS"
     private readonly TOKEN_KEY = 'access_token';
     private readonly USER_KEY = 'user';
     private currentTokenSubject = new BehaviorSubject<string | null>(null);
@@ -31,20 +39,72 @@ export class AuthService {
         private platformService: PlatformService
     ) {
         this.initializeSession();
+        if (!platformService.isBrowser) return;
+        if (environment.mock) {
+            const data = localStorage.getItem(this.MOCK_KEY);
+            if (data) {
+                this.mockUsers = JSON.parse(data);
+            }
+        }
     }
 
     register(model: RegisterModel): Observable<void> {
-        this.extractData(
-            this.httpClient.post<AuthResponseModel>(this.baseUrl + "/register", model)
-        )
-        return this.mock();
+        if (environment.mock) {
+            debugger
+            const col = this.mockUsers.find(it => it.user.username == model.username || it.user.isu == model.isu);
+            if (col) {
+                const errorResponse = new HttpErrorResponse({
+                    error: {
+                        field: col.user.username == model.username ? "username" : "isu",
+                        value: col.user.username == model.username ? model.username : model.isu
+                    },
+                    status: 409,
+                    statusText: 'Conflict'
+                });
+                return throwError(() => errorResponse)
+            }
+            const user = {
+                username: model.username,
+                fullName: `${model.firstName} ${model.lastName}`,
+                isu: model.isu
+            }
+            this.mockUsers.push({user, password: model.password});
+            localStorage.setItem(this.MOCK_KEY, JSON.stringify(this.mockUsers));
+            this.setSession({token: "cool-token", user});
+            return of(undefined);
+        } else {
+            return this.extractData(
+                this.httpClient.post<AuthResponseModel>(this.baseUrl + "/register", model)
+            );
+        }
     }
 
     login(model: LoginModel): Observable<void> {
-        this.extractData(
-            this.httpClient.post<AuthResponseModel>(this.baseUrl + "/register", model)
-        )
-        return this.mock();
+        if (environment.mock) {
+            const col = this.mockUsers.find(it => it.user.username == model.username || it.user.isu == model.username);
+            if (!col) {
+                const errorResponse = new HttpErrorResponse({
+                    error: '',
+                    status: 404,
+                    statusText: 'Not found'
+                });
+                return throwError(() => errorResponse)
+            }
+            if (col.password != model.password) {
+                const errorResponse = new HttpErrorResponse({
+                    error: '',
+                    status: 401,
+                    statusText: 'Unauthorized'
+                });
+                return throwError(() => errorResponse)
+            }
+            this.setSession({token: "cool-token", user: col.user});
+            return of(undefined);
+        } else {
+            return this.extractData(
+                this.httpClient.post<AuthResponseModel>(this.baseUrl + "/register", model)
+            );
+        }
     }
 
     getToken(): string | null {
@@ -77,18 +137,6 @@ export class AuthService {
             tap(this.setSession),
             map(_ => {})
         )
-    }
-
-    private mock(): Observable<void> {
-        this.setSession({
-            token: "cool-token-228",
-            user: {
-                username: 'volodyapokalipsis',
-                fullName: 'Vladimir Pokalipsis',
-                isu: "676767"
-            }
-        });
-        return of(undefined);
     }
 
     private initializeSession() {

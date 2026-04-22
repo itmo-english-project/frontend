@@ -5,7 +5,7 @@
     [autocomplete]="autocomplete"
     [(ngModel)]="value"
     [placeholder]="placeholder"
-    (input)="touched = true"
+    (input)="touched = true; handleInput($event)"
     (blur)="touched = true"
     [ngClass]="touched && !isValid ? invalidClass : ''"
 />

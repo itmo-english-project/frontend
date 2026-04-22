@@ -1,4 +1,14 @@
 
 <app-nav>
-    <h1>Hello!</h1>
+    <div class="w-100">
+        <div class="els-container container-fluid d-flex">
+            <div class="row">
+                @for (offer of values; track offer.id) {
+                    <div class="col-sm-6 col-md-auto els-container">
+                        <offer-card [value]="offer" />
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
 </app-nav>

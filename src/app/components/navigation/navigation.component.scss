@@ -2,8 +2,8 @@
 @use 'mixins' as *;
 
 :host {
-    @include fill-screen;
-    flex-grow: 1;
+    display: flex;
+    width: 100%;
 }
 
 .nav {
@@ -13,6 +13,11 @@
     display: flex;
     width: 100%;
     height: 100%;
+    z-index: 1000;
+    pointer-events: none;
+    * {
+        pointer-events: all;
+    }
 }
 
 .removal {
@@ -114,7 +119,10 @@
     display: flex;
     padding-inline: 33px 64px;
     flex-direction: column;
+    background-color: $white;
+    z-index: 100;
     flex-grow: 1;
+    height: fit-content;
     @media screen and (max-width: calc($md - $eps)) {
         display: none;
     }
@@ -124,7 +132,7 @@
 }
 
 .pc-header {
-    z-index: 50;
+    z-index: 100;
     display: flex;
     justify-content: space-between;
     height: 84px;
@@ -146,6 +154,8 @@
     align-items: center;
     padding-inline: 16px;
     border-bottom: 1px solid $grey-100;
+    background-color: $white;
+    z-index: 99;
     a {
         display: flex;
         align-items: center;
@@ -165,6 +175,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 200px;
     cursor: pointer;
     .i {
         transition: 0.2s ease-in-out;
@@ -262,8 +273,9 @@
     @media screen and (min-width: $md) {
         margin-left: calc(256px + 16px);
         margin-top: calc(64px + 18px);
+        width: 100%;
     }
-    z-index: 101;
+    z-index: 1;
     padding: 16px;
     @media screen and (max-width: calc($md - $eps)) {
         margin-top: 53px;
