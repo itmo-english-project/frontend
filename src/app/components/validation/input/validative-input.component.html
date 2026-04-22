@@ -1,11 +1,32 @@
-<input
-    [attr.name]="name"
-    [class]="innerClass"
-    [type]="type"
-    [autocomplete]="autocomplete"
-    [(ngModel)]="value"
-    [placeholder]="placeholder"
-    (input)="touched = true; handleInput($event)"
-    (blur)="touched = true"
-    [ngClass]="touched && !isValid ? invalidClass : ''"
-/>
+@if (type === 'file') {
+    <input
+        type="file"
+        [attr.accept]="accept"
+        (change)="handleFileChange($event)"
+    />
+} @else if (type === 'textarea') {
+    <textarea
+        [attr.name]="name"
+        [class]="innerClass"
+        [autocomplete]="autocomplete"
+        [(ngModel)]="value"
+        [placeholder]="placeholder"
+        (input)="touched = true; handleInput($event)"
+        (blur)="touched = true"
+        [ngClass]="touched && !isValid ? invalidClass : ''"
+    >
+
+    </textarea>
+} @else {
+    <input
+        [attr.name]="name"
+        [class]="innerClass"
+        [type]="type"
+        [autocomplete]="autocomplete"
+        [(ngModel)]="value"
+        [placeholder]="placeholder"
+        (input)="touched = true; handleInput($event)"
+        (blur)="touched = true"
+        [ngClass]="touched && !isValid ? invalidClass : ''"
+    />
+}

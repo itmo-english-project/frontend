@@ -1,0 +1,36 @@
+@use 'pallet' as *;
+
+:host {
+    width: 100%;
+}
+
+.image-container {
+    @media screen and (min-width: $xl) {
+        min-width: 512px;
+        height: 512px;
+        margin-right: 24px;
+    }
+    @media screen and (max-width: calc($xl - $eps)) {
+        margin-bottom: 24px;
+        max-height: 456px;
+        aspect-ratio: 1;
+    }
+
+    max-width: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+
+    img {
+        height: 100%;
+    }
+}
+
+.ad-container {
+    display: flex;
+    @media screen and (max-width: calc($xl - $eps)) {
+        flex-direction: column;
+        justify-content: center;
+    }
+    max-width: 100%;
+}

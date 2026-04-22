@@ -50,7 +50,6 @@ export class AuthService {
 
     register(model: RegisterModel): Observable<void> {
         if (environment.mock) {
-            debugger
             const col = this.mockUsers.find(it => it.user.username == model.username || it.user.isu == model.isu);
             if (col) {
                 const errorResponse = new HttpErrorResponse({
@@ -66,7 +65,8 @@ export class AuthService {
             const user = {
                 username: model.username,
                 fullName: `${model.firstName} ${model.lastName}`,
-                isu: model.isu
+                isu: model.isu,
+                contactInfo: ''
             }
             this.mockUsers.push({user, password: model.password});
             localStorage.setItem(this.MOCK_KEY, JSON.stringify(this.mockUsers));
@@ -122,6 +122,20 @@ export class AuthService {
     logout(): Observable<void> {
         this.clearSession();
         return of();
+    }
+
+    public saveContactInfo(ci: string) {
+        let user = this.getUser();
+        if (user) {
+            let tUser = this.mockUsers.find(it => it.user.username == user.username)
+            if (tUser) {
+                tUser.user.contactInfo = ci;
+            }
+            user.contactInfo = ci;
+            this.currentUserSubject.next(user);
+            localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+            localStorage.setItem(this.MOCK_KEY, JSON.stringify(this.mockUsers));
+        }
     }
 
     private clearSession() {

@@ -1,0 +1,89 @@
+<app-nav>
+    @if (ad) {
+        <div class="ad-container">
+            <div class="image-container">
+                <img [src]="ad.pictures[0]" />
+            </div>
+            <div class="d-flex flex-column">
+                <h2 class="mb-0">{{ad.title}}</h2>
+                <b class="mb-2">by {{ad.author.username}}</b>
+                <p class="mb-4">{{ad.description}}</p>
+                <div>
+                    @if (user) {
+                        @if (user.username != ad.author.username) {
+                            @if (ad.swapRequest == null) {
+                                <button class="button-filled" (click)="createSwapRequestPopup.show()">Create Swap request</button>
+                            } @else {
+                                <button class="button-filled" [routerLink]="`/swap-request/${ad.swapRequest}`">Watch Swap request</button>
+                            }
+                        } @else {
+                            <button class="button-filled me-2" routerLink="/swap-requests">Watch Swap requests</button>
+                            <button class="button-bad" (click)="deletePopup.show()">Delete</button>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</app-nav>
+<popup-menu #deletePopup>
+    <div>
+        <h2 class="mb-3">Are you sure?</h2>
+        <button class="button-bad mt-auto" (click)="delete()">Delete forever</button>
+    </div>
+</popup-menu>
+<popup-menu #createSwapRequestPopup>
+    <h2 class="mb-3">Create</h2>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <label>Title</label>
+                <vinput
+                    #srcTitle
+                    placeholder=""
+                    type="text"
+                    [minLength]="1"
+                    [(ngModel)]="swapRequestCreationModel.title"
+                />
+            </div>
+            <div class="col">
+                <label>Choose image</label>
+                <vinput
+                    #srcImage
+                    placeholder=""
+                    type="file"
+                    accept="image/*"
+                    (fileSelected)="onImageSelected($event)"
+                />
+            </div>
+            <div class="col-12">
+                <label>Description</label>
+                <vinput
+                    #srcDesc
+                    placeholder=""
+                    type="textarea"
+                    [(ngModel)]="swapRequestCreationModel.description"
+                    [minLength]="1"
+                />
+            </div>
+            <div class="col-12">
+                <label>Surcharge (kopecks)</label>
+                <vinput
+                    #srcAmt
+                    placeholder=""
+                    type="number"
+                    [(ngModel)]="swapRequestCreationModel.surchargeKopecks"
+                    digitsOnly
+                />
+            </div>
+            <div class="col-12">
+                <vbutton
+                    innerClass="button-filled"
+                    [validationSources]="[srcTitle, srcImage, srcDesc, srcAmt]"
+                    (onClick)="createSwapRequest()"
+                    (onError)="snackbarService.showOrFatal($event)"
+                >Create</vbutton>
+            </div>
+        </div>
+    </div>
+</popup-menu>

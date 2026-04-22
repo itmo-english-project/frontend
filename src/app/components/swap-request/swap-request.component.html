@@ -1,0 +1,35 @@
+@if (swapRequest) {
+    <app-nav>
+        <div class="ad-container">
+            <div class="image-container">
+                <img [src]="swapRequest.pictures[0]" />
+            </div>
+            <div class="d-flex flex-column">
+                <h2 class="mb-0">{{swapRequest.title}}</h2>
+                <a class="url-link" [href]="`/ad/${ad!.id}`" target="_blank">for {{ad!.title}}</a>
+                <b class="mb-2">by {{swapRequest.author.username}}</b>
+                <p class="mb-4">{{swapRequest.description}}</p>
+                <div>
+                    @if (user && swapRequest.author.username === user.username) {
+                        <button class="button-bad" (click)="deletePopup.show()">Delete</button>
+                    } @else if (!info) {
+                        <button class="button-filled me-2" (click)="accept()">Accept</button>
+                        <button class="button-bad" (click)="reject()">Reject</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </app-nav>
+    <popup-menu #deletePopup>
+        <div>
+            <h2 class="mb-3">Are you sure?</h2>
+            <button class="button-bad mt-auto" (click)="delete()">Delete forever</button>
+        </div>
+    </popup-menu>
+    <popup-menu #infoPopup>
+        <div>
+            <h2>Contact info</h2>
+            <p>{{info}}</p>
+        </div>
+    </popup-menu>
+}

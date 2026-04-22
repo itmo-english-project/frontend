@@ -1,0 +1,14 @@
+@use 'pallet' as *;
+
+offer-card {
+    margin-bottom: 16px;
+    @media screen and (min-width: $md) {
+        margin-right: 16px;
+    }
+}
+
+.els-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

@@ -1,0 +1,45 @@
+<app-nav>
+    <h2 class="mb-3">Create</h2>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <label>Title</label>
+                <vinput
+                    #srcTitle
+                    placeholder=""
+                    type="text"
+                    [minLength]="1"
+                    [(ngModel)]="adModel.title"
+                />
+            </div>
+            <div class="col">
+                <label>Choose image</label>
+                <vinput
+                    #srcImage
+                    placeholder=""
+                    type="file"
+                    accept="image/*"
+                    (fileSelected)="onImageSelected($event)"
+                />
+            </div>
+            <div class="col-12">
+                <label>Description</label>
+                <vinput
+                    #srcDesc
+                    placeholder=""
+                    type="textarea"
+                    [(ngModel)]="adModel.description"
+                    [minLength]="1"
+                />
+            </div>
+            <div class="col-12">
+                <vbutton
+                    innerClass="button-filled"
+                    [validationSources]="[srcTitle, srcImage, srcDesc]"
+                    (onClick)="createAd()"
+                    (onError)="snackbarService.showOrFatal($event)"
+                >Create</vbutton>
+            </div>
+        </div>
+    </div>
+</app-nav>

@@ -1,0 +1,33 @@
+<app-nav>
+    @if (my.length > 0) {
+        <h1 class="mb-4">My Swap requests</h1>
+        <div class="container">
+            <div class="row">
+                @for (m of my; track m.id) {
+                    <div class="col-sm-6 col-md-auto">
+                        <div class="els-container">
+                            <offer-card [value]="m" url="swap-request" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    @if (related.length > 0) {
+        <h1 class="mb-4">Incoming Swap requests</h1>
+        <div class="container">
+            <div class="row">
+                @for (m of related; track m.id) {
+                    <div class="col-sm-6 col-md-auto">
+                        <div class="els-container">
+                            <offer-card [value]="m" url="swap-request" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    @if (related.length + my.length === 0) {
+        <h2>Nothing here :(</h2>
+    }
+</app-nav>

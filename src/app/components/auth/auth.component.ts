@@ -67,7 +67,6 @@ export class AuthComponent {
     }
 
     register() {
-        debugger
         this.sub.add(
             this.authService.register(this.registerModel).subscribe({
                 next: () => {

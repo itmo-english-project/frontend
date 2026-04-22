@@ -1,6 +1,6 @@
 
 <div class="offer-card" [attr.name]="value.id">
-    <a [routerLink]="`/offer/${value.id}`">
+    <a [routerLink]="`/${url}/${value.id}`">
         <div class="offer-pic-container">
             <img class="offer-picture" [src]="value.pictures[0]" />
         </div>
@@ -10,6 +10,6 @@
         <p class="offer-desc">{{shortDesc}}</p>
     </div>
     <div class="mt-auto w-100">
-        <button  [routerLink]="`/offer/${value.id}`" class="button-filled">More</button>
+        <button  [routerLink]="`/${url}/${value.id}`" class="button-filled">More</button>
     </div>
 </div>

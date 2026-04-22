@@ -10,7 +10,13 @@ import { RouterLink } from "@angular/router";
     styleUrl: './offer-card.component.scss'
 })
 export class OfferCard {
-    @Input() value!: OfferModel;
+    @Input() value!: {
+        id: number
+        title: string
+        pictures: string[]
+        description: string
+    };
+    @Input() url!: string;
 
     public get shortDesc(): string {
         return this.value.description.substring(0, 60) + '...';

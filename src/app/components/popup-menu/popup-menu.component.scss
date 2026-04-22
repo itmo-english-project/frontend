@@ -1,0 +1,29 @@
+@use 'pallet' as *;
+
+:host {
+    display: block;
+}
+
+.popup-menu {
+    border-radius: 12px;
+    background-color: $white;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    z-index: 20000;
+    min-width: 300px;
+    min-height: 100px;
+    max-width: 95%;
+    box-shadow: 0 0 20px #00000022;
+    padding: 24px;
+    padding-right: 50px;
+}
+
+.close {
+    position: fixed;
+    right: 20px;
+    top: 5px;
+    font-size: 24px;
+    color: $red;
+}

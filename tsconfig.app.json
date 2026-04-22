@@ -11,7 +11,7 @@
   },
   "include": [
     "src/**/*.ts"
-  ],
+, "src/app/components/navigation/.component.ts"  ],
   "exclude": [
     "src/**/*.spec.ts"
   ]

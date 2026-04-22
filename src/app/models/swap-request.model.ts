@@ -1,14 +1,13 @@
 import { UserModel } from "./user.model"
 
-export interface OfferModel {
+export interface SwapRequestModel {
     id: number
+    offerId: number
     author: UserModel
     title: string
     description: string
     pictures: string[]
-    dueTime: Date | null
+    surchargeKopecks: number
     creationDate: Date
-    swapRequest: number | null
-    tags: string[]
-    status: "closed" | "deleted" | "active"
+    status: "approved" | "declined" | "deleted" | "pending"
 }

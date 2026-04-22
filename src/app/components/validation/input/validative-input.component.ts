@@ -1,4 +1,4 @@
-import { Component, Input, booleanAttribute, forwardRef } from "@angular/core";
+import { Component, EventEmitter, Input, Output, booleanAttribute, forwardRef } from "@angular/core";
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isCapital, isDigitsOnly, Validative } from "../validative";
 import { CommonModule } from "@angular/common";
@@ -39,6 +39,7 @@ export class ValidativeInput implements Validative, ControlValueAccessor {
     @Input() type: string | null = null;
     @Input() autocomplete: string | null = null;
     @Input() invalidClass = "bad";
+    @Input() accept: string | null = null;
 
     @Input() minLength: number | null = null;
     @Input() exactLength: number | null = null;
@@ -66,6 +67,7 @@ export class ValidativeInput implements Validative, ControlValueAccessor {
         if ((this.notEmpty || this.minLength || (this.exactLength && this.exactLength != 0)) && !this.value) {
             return `${name} can not be empty`;
         }
+        if (this.type === "file") return null;
         if (this.digitsOnly && !isDigitsOnly(this.value)) {
             return `${name} must contain digits only`;
         }
@@ -98,6 +100,16 @@ export class ValidativeInput implements Validative, ControlValueAccessor {
         }
         return null;
     };
+
+    @Output() fileSelected = new EventEmitter<File | null>();
+    handleFileChange(event: Event) {
+        const input = event.target as HTMLInputElement;
+        const file = input.files?.[0] ?? null;
+
+        this.fileSelected.emit(file);
+        this.onChange(file); // optional
+        this.onTouched();
+    }
 
     getErrorMessage(): string | null {
         return this.errorMessageFunc(this.value);

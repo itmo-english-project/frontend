@@ -9,12 +9,14 @@
             </div>
             <div class="menu-links">
                 @for (link of menuLinks; track link.text) {
-                    <a [routerLink]="link.url">
-                        <div class="menu-link" [class.active]="'/' + localUrl == link.url">
-                            <i [class]="link.icon"></i>
-                            <span class="menu-link-text">{{ link.text }}</span>
-                        </div>
-                    </a>
+                    @if (link.icon != null) {
+                        <a [routerLink]="`/${link.url}`">
+                            <div class="menu-link" [class.active]="localUrl == link.url">
+                                <i [class]="link.icon"></i>
+                                <span class="menu-link-text">{{ link.text }}</span>
+                            </div>
+                        </a>
+                    }
                 }
             </div>
         </div>
@@ -39,7 +41,7 @@
                             <i class="i-dropdown"></i>
                         </div>
                         <div #popupMenu class="popup-menu" [class.showed]="doShowRightMenuPc">
-                            <a routerLink="/settings">
+                            <a routerLink="/user-settings">
                                 <div class="popup-menu-element">
                                     <img src="/assets/images/profile-settings.svg" />
                                     <span class="text">User settings</span>
@@ -65,7 +67,7 @@
                 </div>
             </div>
             <div class="user-links-mobile">
-                <a routerLink="/settings">
+                <a routerLink="/user-settings">
                     <div class="element">
                         <img src="/assets/images/profile-settings.svg" />
                         <span class="text">User settings</span>

@@ -7,7 +7,7 @@ import { RouterService } from "@services/router.service";
 import { finalize } from "rxjs";
 
 interface MenuLink {
-    icon: string,
+    icon: string | null,
     text: string,
     url: string
 }
@@ -24,23 +24,38 @@ export class NavigationComponent {
         {
             icon: 'i-search',
             text: 'Explore',
-            url: '/'
+            url: ''
         },
         {
             icon: 'i-list',
             text: 'My ads',
-            url: '/ads'
+            url: 'ads'
         },
         {
             icon: 'i-social',
             text: 'Swap requests',
-            url: '/swap-requests'
+            url: 'swap-requests'
         },
         {
             icon: 'i-plus',
             text: 'Create ad',
-            url: '/create'
-        }
+            url: 'create-ad'
+        },
+        {
+            icon: null,
+            text: 'Watch ad',
+            url: 'ad'
+        },
+        {
+            icon: null,
+            text: 'User settings',
+            url: 'user-settings'
+        },
+        {
+            icon: null,
+            text: 'Swap request',
+            url: 'swap-request'
+        },
     ];
 
     @ViewChild('userDropdown') userDropdown!: ElementRef;
@@ -74,7 +89,12 @@ export class NavigationComponent {
 
     ngOnInit() {
         this.localUrl = this.routerService.getLocalUrl();
-        this.title = this.menuLinks.find(it => it.url == '/' + this.localUrl)!.text;
+        if (this.localUrl) {
+            this.title = this.menuLinks.find(it => this.routerService.urlContains(it.url))!.text;
+        } else {
+            this.title = this.menuLinks[0].text;
+        }
+        
         if (this.platformService.isBrowser) {
             if (!this.authService.isAuthenticated()) {
                 this.routerService.navigate("/register");
